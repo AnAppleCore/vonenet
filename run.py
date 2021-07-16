@@ -5,15 +5,17 @@ import tqdm
 
 parser = argparse.ArgumentParser(description='ImageNet Validation')
 
-parser.add_argument('--in_path', required=True,
+parser.add_argument('--in_path', default='../', type=str,
                     help='path to ImageNet folder that contains val folder')
+# parser.add_argument('--in_path', required=True,
+#                     help='path to ImageNet folder that contains val folder')
 parser.add_argument('--batch_size', default=128, type=int,
                     help='size of batch for validation')
 parser.add_argument('--workers', default=20,
                     help='number of data loading workers')
 parser.add_argument('--ngpus', default=1, type=int,
                     help='number of GPUs to use; 0 if you want to run on CPU')
-parser.add_argument('--model_arch', choices=['alexnet', 'resnet50', 'resnet50_at', 'cornets'], default='resnet50',
+parser.add_argument('--model_arch', choices=['alexnet', 'resnet50', 'resnet50_at', 'cornets', 'vgg19_bn'], default='resnet50',
                     help='back-end model architecture to load')
 
 FLAGS, FIRE_FLAGS = parser.parse_known_args()
@@ -60,7 +62,7 @@ def val():
     if FLAGS.ngpus > 0 and torch.cuda.device_count() > 1:
         print('Running on multiple GPUs')
         model = model.to(device)
-    elif FLAGS.ngpus > 0 and torch.cuda.device_count() is 1:
+    elif FLAGS.ngpus > 0 and torch.cuda.device_count() == 1:
         print('Running on single GPU')
         model = model.to(device)
     else:

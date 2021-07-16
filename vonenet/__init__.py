@@ -21,11 +21,11 @@ def get_model(model_arch='resnet50', pretrained=True, map_location='cpu', **kwar
     """
     Returns a VOneNet model.
     Select pretrained=True for returning one of the 3 pretrained models.
-    model_arch: string with identifier to choose the architecture of the back-end (resnet50, cornets, alexnet)
+    model_arch: string with identifier to choose the architecture of the back-end (resnet50, cornets, alexnet, vgg19_net)
     """
     if pretrained and model_arch:
         url = f'https://vonenet-models.s3.us-east-2.amazonaws.com/{FILE_WEIGHTS[model_arch.lower()]}'
-        home_dir = os.environ['HOME']
+        home_dir = os.environ['HOMEPATH']
         vonenet_dir = os.path.join(home_dir, '.vonenet')
         weightsdir_path = os.path.join(vonenet_dir, FILE_WEIGHTS[model_arch.lower()])
         if not os.path.exists(vonenet_dir):

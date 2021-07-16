@@ -2,7 +2,7 @@
 from collections import OrderedDict
 from torch import nn
 from .modules import VOneBlock
-from .back_ends import ResNetBackEnd, Bottleneck, AlexNetBackEnd, CORnetSBackEnd
+from .back_ends import ResNetBackEnd, Bottleneck, AlexNetBackEnd, CORnetSBackEnd, VGGBackEnd
 from .params import generate_gabor_param
 import numpy as np
 
@@ -50,6 +50,9 @@ def VOneNet(sf_corr=0.75, sf_max=9, sf_min=0, rand_param=False, gabor_seed=0,
         elif model_arch.lower() == 'cornets':
             print('Model: ', 'VOneCORnet-S')
             model_back_end = CORnetSBackEnd()
+        elif model_arch.lower() == 'vgg19_bn':
+            print('Model: ', 'VOneVGG19-BN')
+            model_back_end = VGGBackEnd()
 
         model = nn.Sequential(OrderedDict([
             ('vone_block', vone_block),

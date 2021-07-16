@@ -145,7 +145,7 @@ def load_model():
     if FLAGS.ngpus > 0 and torch.cuda.device_count() > 1:
         print('We have multiple GPUs detected')
         model = model.to(device)
-    elif FLAGS.ngpus > 0 and torch.cuda.device_count() is 1:
+    elif FLAGS.ngpus > 0 and torch.cuda.device_count() == 1:
         print('We run on GPU')
         model = model.to(device)
     else:

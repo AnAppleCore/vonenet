@@ -3,6 +3,7 @@ import numpy as np
 from .utils import sample_dist
 import scipy.stats as stats
 
+np.seterr(divide='ignore',invalid='ignore') # ignore the invalid value in true_divide
 
 def generate_gabor_param(features, seed=0, rand_flag=False, sf_corr=0, sf_max=9, sf_min=0):
     # Generates random sample
