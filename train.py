@@ -40,7 +40,7 @@ parser.add_argument('--weight_decay', default=1e-4, type=float,
 ## Model parameters
 parser.add_argument('--torch_seed', default=0, type=int,
                     help='seed for weights initializations and torch RNG')
-parser.add_argument('--model_arch', choices=['alexnet', 'resnet50', 'resnet50_at', 'cornets'], default='resnet50',
+parser.add_argument('--model_arch', choices=['alexnet', 'resnet50', 'resnet50_at', 'cornets', 'vgg19_bn', 'densenet121', 'squeezenet1_1'], default='resnet50',
                     help='back-end model architecture to load')
 parser.add_argument('--normalization', choices=['vonenet', 'imagenet'], default='vonenet',
                     help='image normalization to apply to models')
