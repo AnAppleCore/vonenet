@@ -66,7 +66,7 @@ VOneNets was trained with images normalized with mean=[0.5,0.5,0.5] and std=[0.5
   
     when it's finished, you can see train directory and val directory. Again,'val' directory is needed when setting up
   
-    > **Caution:** after all execution above, must remove directory or file not having name n0000 -> there will be fault in training -> ex) 'ILSVRC2012_img_train' in train directory, 'ILSVRC2012_img_val.tar' in val directory
+    > **Caution!!!** after all execution above, must remove directory or file not having name n0000 -> there will be fault in training -> ex) 'ILSVRC2012_img_train' in train directory, 'ILSVRC2012_img_val.tar' in val directory
   
 3. Run
 
