@@ -5,10 +5,8 @@ import tqdm
 
 parser = argparse.ArgumentParser(description='ImageNet Validation')
 
-parser.add_argument('--in_path', default='../', type=str,
+parser.add_argument('--in_path', required=True,
                     help='path to ImageNet folder that contains val folder')
-# parser.add_argument('--in_path', required=True,
-#                     help='path to ImageNet folder that contains val folder')
 parser.add_argument('--batch_size', default=128, type=int,
                     help='size of batch for validation')
 parser.add_argument('--workers', default=20,
