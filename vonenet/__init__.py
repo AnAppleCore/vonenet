@@ -27,7 +27,7 @@ def get_model(model_arch='resnet50', pretrained=True, map_location='cpu', **kwar
     """
     if pretrained and model_arch in AVAILABLE_WEIGHTS:
         url = f'https://vonenet-models.s3.us-east-2.amazonaws.com/{FILE_WEIGHTS[model_arch.lower()]}'
-        home_dir = os.environ['HOMEPATH']
+        home_dir = os.environ['HOME']
         vonenet_dir = os.path.join(home_dir, '.vonenet')
         weightsdir_path = os.path.join(vonenet_dir, FILE_WEIGHTS[model_arch.lower()])
         if not os.path.exists(vonenet_dir):
