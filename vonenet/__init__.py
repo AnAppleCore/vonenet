@@ -6,6 +6,8 @@ import requests
 from .vonenet import VOneNet
 from torch.nn import Module
 
+AVAILABLE_WEIGHTS = {'resnet50', 'cornets', 'alexnet'}
+
 FILE_WEIGHTS = {'alexnet': 'vonealexnet_e70.pth.tar', 'resnet50': 'voneresnet50_e70.pth.tar',
                 'resnet50_at': 'voneresnet50_at_e96.pth.tar', 'cornets': 'vonecornets_e70.pth.tar',
                 'resnet50_ns': 'voneresnet50_ns_e70.pth.tar'}
@@ -20,10 +22,10 @@ class Wrapper(Module):
 def get_model(model_arch='resnet50', pretrained=True, map_location='cpu', **kwargs):
     """
     Returns a VOneNet model.
-    Select pretrained=True for returning one of the 3 pretrained models.
+    Select pretrained=True for returning one of the 3 pretrained models: resnet50, cornets and alexnet
     model_arch: string with identifier to choose the architecture of the back-end (resnet50, cornets, alexnet, vgg19_net, densenet121, squeezenet1_1)
     """
-    if pretrained and model_arch:
+    if pretrained and model_arch in AVAILABLE_WEIGHTS:
         url = f'https://vonenet-models.s3.us-east-2.amazonaws.com/{FILE_WEIGHTS[model_arch.lower()]}'
         home_dir = os.environ['HOMEPATH']
         vonenet_dir = os.path.join(home_dir, '.vonenet')
