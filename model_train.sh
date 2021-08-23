@@ -1,0 +1,1 @@
+python train.py train --in_path /root/data/barrycao/data/imagenet -o results/squeezenet1_1/ --model_arch squeezenet1_1 --ngpus 4 --workers 4 --epochs 20 --restore_epoch 2 --restore_path results/squeezenet1_1/

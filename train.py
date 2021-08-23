@@ -329,7 +329,7 @@ class ImageNetVal(object):
         self.name = 'val'
         self.model = model
         self.data_loader = self.data()
-        self.loss = nn.CrossEntropyLoss(size_average=False)
+        self.loss = nn.CrossEntropyLoss(reduction='sum')
         self.loss = self.loss.to(device)
 
     def data(self):

@@ -1,0 +1,6 @@
+scipy
+pandas
+fire
+tqdm
+torchvision
+requests
