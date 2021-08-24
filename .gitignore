@@ -1,0 +1,5 @@
+build/
+dist/
+vonenet/__pycache__/
+vonenet.egg-info/
+results/
