@@ -9,7 +9,7 @@ parser.add_argument('--in_path', required=True,
                     help='path to ImageNet folder that contains val folder')
 parser.add_argument('--batch_size', default=128, type=int,
                     help='size of batch for validation')
-parser.add_argument('--workers', default=20,
+parser.add_argument('--workers', default=20, type=int,
                     help='number of data loading workers')
 parser.add_argument('--ngpus', default=1, type=int,
                     help='number of GPUs to use; 0 if you want to run on CPU')

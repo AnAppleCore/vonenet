@@ -6,7 +6,7 @@ import requests
 from .vonenet import VOneNet
 from torch.nn import Module
 
-AVAILABLE_WEIGHTS = {'resnet50', 'cornets', 'alexnet'}
+GIVEN_WEIGHTS = {'resnet50', 'cornets', 'alexnet'}
 
 FILE_WEIGHTS = {'alexnet': 'vonealexnet_e70.pth.tar', 'resnet50': 'voneresnet50_e70.pth.tar',
                 'resnet50_at': 'voneresnet50_at_e96.pth.tar', 'cornets': 'vonecornets_e70.pth.tar',
@@ -22,20 +22,22 @@ class Wrapper(Module):
 def get_model(model_arch='resnet50', pretrained=True, map_location='cpu', **kwargs):
     """
     Returns a VOneNet model.
-    Select pretrained=True for returning one of the 3 pretrained models: resnet50, cornets and alexnet
-    model_arch: string with identifier to choose the architecture of the back-end (resnet50, cornets, alexnet, vgg19_net, densenet121, squeezenet1_1)
+    Select pretrained=True for returning pretrained models
+    model_arch: string with identifier to choose the architecture of the back-end (resnet50, cornets, alexnet, vgg19_bn, densenet121, squeezenet1_1)
     """
-    if pretrained and model_arch in AVAILABLE_WEIGHTS:
-        url = f'https://vonenet-models.s3.us-east-2.amazonaws.com/{FILE_WEIGHTS[model_arch.lower()]}'
-        home_dir = os.environ['HOME']
-        vonenet_dir = os.path.join(home_dir, '.vonenet')
-        weightsdir_path = os.path.join(vonenet_dir, FILE_WEIGHTS[model_arch.lower()])
+    if pretrained and model_arch:
+        results_dir = os.path.join('.', 'results')
+        if model_arch in GIVEN_WEIGHTS:
+            vonenet_dir = results_dir
+            weightsdir_path = os.path.join(results_dir, FILE_WEIGHTS[model_arch.lower()])
+        else:
+            vonenet_dir = os.path.join(results_dir, model_arch)
+            weightsdir_path = os.path.join(vonenet_dir, 'epoch_30.pth.tar')
         if not os.path.exists(vonenet_dir):
             os.makedirs(vonenet_dir)
         if not os.path.exists(weightsdir_path):
-            print('Downloading model weights to ', weightsdir_path)
-            r = requests.get(url, allow_redirects=True)
-            open(weightsdir_path, 'wb').write(r.content)
+            print('Please check the model weight path:', weightsdir_path)
+            return None
 
         ckpt_data = torch.load(weightsdir_path, map_location=map_location)
 
@@ -48,7 +50,10 @@ def get_model(model_arch='resnet50', pretrained=True, map_location='cpu', **kwar
         noise_scale = ckpt_data['flags']['noise_scale']
         noise_level = ckpt_data['flags']['noise_level']
 
-        model_id = ckpt_data['flags']['arch'].replace('_','').lower()
+        if model_arch in GIVEN_WEIGHTS:
+            model_id = ckpt_data['flags']['arch'].replace('_','').lower()
+        else: 
+            model_id = model_arch
 
         model = globals()[f'VOneNet'](model_arch=model_id, stride=stride, k_exc=k_exc,
                                       simple_channels=simple_channels, complex_channels=complex_channels,
