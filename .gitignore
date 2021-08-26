@@ -3,4 +3,4 @@ dist/
 vonenet/__pycache__/
 vonenet.egg-info/
 results/
-./model_train.sh
+model_train.sh
